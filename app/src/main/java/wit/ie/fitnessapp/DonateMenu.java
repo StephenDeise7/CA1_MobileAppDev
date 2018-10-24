@@ -95,5 +95,23 @@ public class DonateMenu extends Base
             amountTotal.setText(totalDonatedStr);
         }
     }
+    public void go2Home (View view){
+        Intent intent = new Intent (this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void go2Search (View view){
+        Intent intent = new Intent (this, SearchForGym.class);
+        startActivity(intent);
+    }
+
+    public void go2Favourites (View view){
+        Intent intent = new Intent (this, FavouritesMenu.class);
+        startActivity(intent);
+    }
+    public void go2Donate (View view){
+        Intent intent = new Intent (this, DonateMenu.class);
+        startActivity(intent);
+    }
 }
 
