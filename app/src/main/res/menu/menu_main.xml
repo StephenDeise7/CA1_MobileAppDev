@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="wit.ie.fitnessapp.MainActivity">
+    <item
+        android:id="@+id/Home"
+        android:orderInCategory="100"
+        android:title="@string/Home"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuDonate"
+        android:orderInCategory="100"
+        android:title="@string/menuDonate"
+        app:showAsAction="never"/>
+        />
+    <item
+        android:id="@+id/menuReport"
+        android:orderInCategory="100"
+        android:title="@string/menuReport"
+        app:showAsAction="never"/>
+
+</menu>
+
