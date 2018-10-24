@@ -63,6 +63,24 @@ public class Report extends Base
         }
         return super.onOptionsItemSelected(item);
     }
+    public void go2Home (View view){
+        Intent intent = new Intent (this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void go2Search (View view){
+        Intent intent = new Intent (this, SearchForGym.class);
+        startActivity(intent);
+    }
+
+    public void go2Favourites (View view){
+        Intent intent = new Intent (this, FavouritesMenu.class);
+        startActivity(intent);
+    }
+    public void go2Donate (View view){
+        Intent intent = new Intent (this, DonateMenu.class);
+        startActivity(intent);
+    }
 }
 
 class DonationAdapter extends ArrayAdapter<Donation>
