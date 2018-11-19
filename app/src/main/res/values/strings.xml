@@ -121,5 +121,19 @@
     <string name="total">Total</string>
     <string name="totalSoFar">Total So Far</string>
     <string name="amount">Amount</string>
+    <string name="title_activity_main_login">MainLoginActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="menuLogout">Logout</string>
+    <string name="menuProfile">Profile</string>
+    <string name="title_activity_test_favourites">TestFavourites</string>
+    <string name="MenuReset">Reset</string>
+    <string-array name="genres">
+        <item>Arms</item>
+        <item>Back</item>
+        <item>Chest</item>
+        <item>Legs</item>
+    </string-array>
+    <string name="title_activity_maps">Maps</string>
+
 
 </resources>

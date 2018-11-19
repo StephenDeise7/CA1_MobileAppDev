@@ -2,6 +2,8 @@ package Exercises;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,14 +16,15 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.firebase.auth.FirebaseAuth;
 
-import wit.ie.fitnessapp.DonateMenu;
-import wit.ie.fitnessapp.FavouritesMenu;
+import CRUD.MainFavouriteActivity;
+import Menus.HomeMenu;
 import wit.ie.fitnessapp.ListAdapter;
 import wit.ie.fitnessapp.MainActivity;
+import Menus.ProfileActivity;
+import wit.ie.fitnessapp.MapsActivity;
 import wit.ie.fitnessapp.R;
-import wit.ie.fitnessapp.Report;
-import wit.ie.fitnessapp.SearchForGym;
 import wit.ie.fitnessapp.SettingsActivity;
 
 public class Arms extends AppCompatActivity
@@ -37,11 +40,16 @@ public class Arms extends AppCompatActivity
 
     ListAdapter lAdapter;
 
+    private FirebaseAuth firebaseAuth;
+
     @Override
 public void onCreate(Bundle savedInstanceState)
 {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_arms);
+
+    firebaseAuth = FirebaseAuth.getInstance();
+
     lView = (ListView) findViewById(R.id.androidList);
 
     lAdapter = new ListAdapter(Arms.this, version, versionNumber, images);
@@ -68,20 +76,42 @@ public void onCreate(Bundle savedInstanceState)
         }
     });
 
+    BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+    bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            switch (menuItem.getItemId())
+            {
+                case R.id.nav_home:
+                    Intent intent0 = new Intent (Arms.this, MainActivity.class);
+                    startActivity(intent0);
+                    break;
+                case R.id.nav_favorites:
+                    Intent intent1 = new Intent (Arms.this, MainFavouriteActivity.class);
+                    startActivity(intent1);
+                    break;
+                case R.id.nav_search:
+                    Intent intent2 = new Intent (Arms.this, MapsActivity.class);
+                    startActivity(intent2);
+                    break;
+
+
+            }
+            return true;
+        }
+    });
+
 }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         switch(item.getItemId())
         {
             case R.id.Home: startActivity(new Intent(this, MainActivity.class));
@@ -90,11 +120,14 @@ public void onCreate(Bundle savedInstanceState)
             case R.id.settings: startActivity(new Intent(this, SettingsActivity.class));
                 break;
 
-            case R.id.menuDonate: startActivity(new Intent(this, DonateMenu.class));
+            case R.id.menuProfile: startActivity(new Intent(this, ProfileActivity.class));
                 break;
-
-            case R.id.menuReport: startActivity(new Intent(this, Report.class));
-                break;
+            case R.id.menuLogout:
+                firebaseAuth.signOut();
+                //closing activity
+                finish();
+                //starting login activity
+                startActivity(new Intent(this, HomeMenu.class));
 
         }
 
@@ -102,33 +135,18 @@ public void onCreate(Bundle savedInstanceState)
         return super.onOptionsItemSelected(item);
     }
 
-    public void go2Home (View view){
-        Intent intent = new Intent (this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void go2Search (View view){
-        Intent intent = new Intent (this, SearchForGym.class);
-        startActivity(intent);
-    }
-
-    public void go2Favourites (View view){
-        Intent intent = new Intent (this, FavouritesMenu.class);
-        startActivity(intent);
-    }
-    public void go2Donate (View view){
-        Intent intent = new Intent (this, DonateMenu.class);
-        startActivity(intent);
-    }
 
     public static class BCurl extends YouTubeBaseActivity
     {
 
+        private FirebaseAuth firebaseAuth;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_bcurl);
+
+            firebaseAuth = FirebaseAuth.getInstance();
 
 
 
@@ -153,6 +171,31 @@ public void onCreate(Bundle savedInstanceState)
 
                         }
                     });
+
+            BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    switch (menuItem.getItemId())
+                    {
+                        case R.id.nav_home:
+                            Intent intent0 = new Intent (BCurl.this, MainActivity.class);
+                            startActivity(intent0);
+                            break;
+                        case R.id.nav_favorites:
+                            Intent intent1 = new Intent (BCurl.this, MainFavouriteActivity.class);
+                            startActivity(intent1);
+                            break;
+                        case R.id.nav_search:
+                            Intent intent2 = new Intent (BCurl.this, MapsActivity.class);
+                            startActivity(intent2);
+                            break;
+
+
+                    }
+                    return true;
+                }
+            });
         }
 
         @Override
@@ -176,11 +219,13 @@ public void onCreate(Bundle savedInstanceState)
                 case R.id.settings: startActivity(new Intent(this, SettingsActivity.class));
                     break;
 
-                case R.id.menuDonate: startActivity(new Intent(this, DonateMenu.class));
+                case R.id.menuProfile: startActivity(new Intent(this, ProfileActivity.class));
                     break;
+                case R.id.menuLogout:
+                    firebaseAuth.signOut();
+                    finish();
 
-                case R.id.menuReport: startActivity(new Intent(this, Report.class));
-                    break;
+                    startActivity(new Intent(this, HomeMenu.class));
 
             }
 
@@ -188,36 +233,45 @@ public void onCreate(Bundle savedInstanceState)
             return super.onOptionsItemSelected(item);
         }
 
-        public void go2Home (View view){
-            Intent intent = new Intent (this, MainActivity.class);
-            startActivity(intent);
-        }
 
-        public void go2Search (View view){
-            Intent intent = new Intent (this, SearchForGym.class);
-            startActivity(intent);
-        }
-
-        public void go2Favourites (View view){
-            Intent intent = new Intent (this, FavouritesMenu.class);
-            startActivity(intent);
-        }
-        public void go2Donate (View view){
-            Intent intent = new Intent (this, DonateMenu.class);
-            startActivity(intent);
-        }
 
     }
 
     public static class TCurl extends YouTubeBaseActivity
     {
+        private FirebaseAuth firebaseAuth;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_tcurl);
 
+            firebaseAuth = FirebaseAuth.getInstance();
 
+            BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    switch (menuItem.getItemId())
+                    {
+                        case R.id.nav_home:
+                            Intent intent0 = new Intent (TCurl.this, MainActivity.class);
+                            startActivity(intent0);
+                            break;
+                        case R.id.nav_favorites:
+                            Intent intent1 = new Intent (TCurl.this, MainFavouriteActivity.class);
+                            startActivity(intent1);
+                            break;
+                        case R.id.nav_search:
+                            Intent intent2 = new Intent (TCurl.this, MapsActivity.class);
+                            startActivity(intent2);
+                            break;
+
+
+                    }
+                    return true;
+                }
+            });
 
 
             YouTubePlayerView youTubePlayerView =
@@ -254,35 +308,18 @@ public void onCreate(Bundle savedInstanceState)
                 case R.id.settings: startActivity(new Intent(this, SettingsActivity.class));
                     break;
 
-                case R.id.menuDonate: startActivity(new Intent(this, DonateMenu.class));
+                case R.id.menuProfile: startActivity(new Intent(this, ProfileActivity.class));
                     break;
-
-                case R.id.menuReport: startActivity(new Intent(this, Report.class));
-                    break;
+                case R.id.menuLogout:
+                    firebaseAuth.signOut();
+                    finish();
+                    startActivity(new Intent(this, HomeMenu.class));
             }
 
 
             return super.onOptionsItemSelected(item);
         }
 
-        public void go2Home (View view){
-            Intent intent = new Intent (this, MainActivity.class);
-            startActivity(intent);
-        }
-
-        public void go2Search (View view){
-            Intent intent = new Intent (this, SearchForGym.class);
-            startActivity(intent);
-        }
-
-        public void go2Favourites (View view){
-            Intent intent = new Intent (this, FavouritesMenu.class);
-            startActivity(intent);
-        }
-        public void go2Donate (View view){
-            Intent intent = new Intent (this, DonateMenu.class);
-            startActivity(intent);
-        }
 
     }
 }

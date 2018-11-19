@@ -2,6 +2,8 @@ package Exercises;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,14 +16,15 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.firebase.auth.FirebaseAuth;
 
-import wit.ie.fitnessapp.DonateMenu;
-import wit.ie.fitnessapp.FavouritesMenu;
+import CRUD.MainFavouriteActivity;
+import Menus.HomeMenu;
 import wit.ie.fitnessapp.ListAdapter;
 import wit.ie.fitnessapp.MainActivity;
+import Menus.ProfileActivity;
+import wit.ie.fitnessapp.MapsActivity;
 import wit.ie.fitnessapp.R;
-import wit.ie.fitnessapp.Report;
-import wit.ie.fitnessapp.SearchForGym;
 import wit.ie.fitnessapp.SettingsActivity;
 
 public class Back extends AppCompatActivity {
@@ -36,11 +39,16 @@ public class Back extends AppCompatActivity {
 
     ListAdapter lAdapter;
 
+    FirebaseAuth firebaseAuth;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_back);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
         lView = (ListView) findViewById(R.id.androidList);
 
         lAdapter = new ListAdapter(Back.this, version, versionNumber, images);
@@ -67,6 +75,30 @@ public class Back extends AppCompatActivity {
             }
         });
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId())
+                {
+                    case R.id.nav_home:
+                        Intent intent0 = new Intent (Back.this, MainActivity.class);
+                        startActivity(intent0);
+                        break;
+                    case R.id.nav_favorites:
+                        Intent intent1 = new Intent (Back.this, MainFavouriteActivity.class);
+                        startActivity(intent1);
+                        break;
+                    case R.id.nav_search:
+                        Intent intent2 = new Intent (Back.this, MapsActivity.class);
+                        startActivity(intent2);
+                        break;
+
+                }
+                return true;
+            }
+        });
+
     }
 
     @Override
@@ -89,11 +121,12 @@ public class Back extends AppCompatActivity {
             case R.id.settings: startActivity(new Intent(this, SettingsActivity.class));
                 break;
 
-            case R.id.menuDonate: startActivity(new Intent(this, DonateMenu.class));
+            case R.id.menuProfile: startActivity(new Intent(this, ProfileActivity.class));
                 break;
-
-            case R.id.menuReport: startActivity(new Intent(this, Report.class));
-                break;
+            case R.id.menuLogout:
+                firebaseAuth.signOut();
+                finish();
+                startActivity(new Intent(this, HomeMenu.class));
 
         }
 
@@ -101,34 +134,43 @@ public class Back extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void go2Home (View view){
-        Intent intent = new Intent (this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void go2Search (View view){
-        Intent intent = new Intent (this, SearchForGym.class);
-        startActivity(intent);
-    }
-
-    public void go2Favourites (View view){
-        Intent intent = new Intent (this, FavouritesMenu.class);
-        startActivity(intent);
-    }
-    public void go2Donate (View view){
-        Intent intent = new Intent (this, DonateMenu.class);
-        startActivity(intent);
-    }
 
     public static class Deadlift extends YouTubeBaseActivity
     {
+
+        private FirebaseAuth firebaseAuth;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.content_deadlift);
 
+            firebaseAuth = FirebaseAuth.getInstance();
 
+            BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    switch (menuItem.getItemId())
+                    {
+                        case R.id.nav_home:
+                            Intent intent0 = new Intent (Deadlift.this, MainActivity.class);
+                            startActivity(intent0);
+                            break;
+                        case R.id.nav_favorites:
+                            Intent intent1 = new Intent (Deadlift.this, MainFavouriteActivity.class);
+                            startActivity(intent1);
+                            break;
+                        case R.id.nav_search:
+                            Intent intent2 = new Intent (Deadlift.this, MapsActivity.class);
+                            startActivity(intent2);
+                            break;
+
+
+                    }
+                    return true;
+                }
+            });
 
 
             YouTubePlayerView youTubePlayerView =
@@ -165,11 +207,14 @@ public class Back extends AppCompatActivity {
                 case R.id.settings: startActivity(new Intent(this, SettingsActivity.class));
                     break;
 
-                case R.id.menuDonate: startActivity(new Intent(this, DonateMenu.class));
+                case R.id.menuProfile: startActivity(new Intent(this, ProfileActivity.class));
                     break;
-
-                case R.id.menuReport: startActivity(new Intent(this, Report.class));
-                    break;
+                case R.id.menuLogout:
+                    firebaseAuth.signOut();
+                    //closing activity
+                    finish();
+                    //starting login activity
+                    startActivity(new Intent(this, HomeMenu.class));
 
             }
 
@@ -177,36 +222,44 @@ public class Back extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
         }
 
-        public void go2Home (View view){
-            Intent intent = new Intent (this, MainActivity.class);
-            startActivity(intent);
-        }
-
-        public void go2Search (View view){
-            Intent intent = new Intent (this, SearchForGym.class);
-            startActivity(intent);
-        }
-
-        public void go2Favourites (View view){
-            Intent intent = new Intent (this, FavouritesMenu.class);
-            startActivity(intent);
-        }
-        public void go2Donate (View view){
-            Intent intent = new Intent (this, DonateMenu.class);
-            startActivity(intent);
-        }
 
     }
 
     public static class BarbellRows extends YouTubeBaseActivity
     {
+        private FirebaseAuth firebaseAuth;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.content_barbell_rows);
 
+            firebaseAuth = FirebaseAuth.getInstance();
 
+            BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    switch (menuItem.getItemId())
+                    {
+                        case R.id.nav_home:
+                            Intent intent0 = new Intent (BarbellRows.this, MainActivity.class);
+                            startActivity(intent0);
+                            break;
+                        case R.id.nav_favorites:
+                            Intent intent1 = new Intent (BarbellRows.this, MainFavouriteActivity.class);
+                            startActivity(intent1);
+                            break;
+                        case R.id.nav_search:
+                            Intent intent2 = new Intent (BarbellRows.this, MapsActivity.class);
+                            startActivity(intent2);
+                            break;
+
+
+                    }
+                    return true;
+                }
+            });
 
 
             YouTubePlayerView youTubePlayerView =
@@ -243,11 +296,13 @@ public class Back extends AppCompatActivity {
                 case R.id.settings: startActivity(new Intent(this, SettingsActivity.class));
                     break;
 
-                case R.id.menuDonate: startActivity(new Intent(this, DonateMenu.class));
-                    break;
 
-                case R.id.menuReport: startActivity(new Intent(this, Report.class));
+                case R.id.menuProfile: startActivity(new Intent(this, ProfileActivity.class));
                     break;
+                case R.id.menuLogout:
+                    firebaseAuth.signOut();
+                    finish();
+                    startActivity(new Intent(this, HomeMenu.class));
 
             }
 
@@ -255,24 +310,6 @@ public class Back extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
         }
 
-        public void go2Home (View view){
-            Intent intent = new Intent (this, MainActivity.class);
-            startActivity(intent);
-        }
-
-        public void go2Search (View view){
-            Intent intent = new Intent (this, SearchForGym.class);
-            startActivity(intent);
-        }
-
-        public void go2Favourites (View view){
-            Intent intent = new Intent (this, FavouritesMenu.class);
-            startActivity(intent);
-        }
-        public void go2Donate (View view){
-            Intent intent = new Intent (this, DonateMenu.class);
-            startActivity(intent);
-        }
 
     }
 }

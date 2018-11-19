@@ -7,9 +7,8 @@
 
 
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/content_main" />
+    <include android:id="@+id/include"
+        layout="@layout/bottom_navigation" />
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="450dp"
         android:layout_marginTop="0dp"
-        tools:context="com.sanktips.customlistviewexample.MainActivity">
+        tools:context=".SearchForGym">
 
 
     </RelativeLayout>
