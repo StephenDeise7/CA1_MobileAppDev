@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "123683972510",
+    "firebase_url": "https://fitnessapp-wit.firebaseio.com",
+    "project_id": "fitnessapp-wit",
+    "storage_bucket": "fitnessapp-wit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123683972510:android:170af011d7084c7a",
+        "android_client_info": {
+          "package_name": "wit.ie.fitnessapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123683972510-lh0gqbnkpdmun9qm9n8rrjg8je0jfls1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "wit.ie.fitnessapp",
+            "certificate_hash": "fe146013fd879426826c2a5ca6ea17fb5202ad27"
+          }
+        },
+        {
+          "client_id": "123683972510-f6nspeiqcitgs8ovrnsqeug5jdbnkmt3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9YjP9-P-LMJa2z0alTO1YcjtzUyM3ORk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123683972510-f6nspeiqcitgs8ovrnsqeug5jdbnkmt3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
