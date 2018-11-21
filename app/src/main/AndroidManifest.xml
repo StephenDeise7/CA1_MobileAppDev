@@ -70,7 +70,7 @@
         <activity
             android:name="Menus.ProfileActivity"
             android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar" />
+            />
         <activity
             android:name="Menus.LoginActivity"
             android:label="@string/title_activity_login"
@@ -94,11 +94,7 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>
 
-        <activity android:name=".Donate"/>
 
-        <activity
-            android:name=".Report"
-            android:label="Report" />
     </application>
 
 </manifest>

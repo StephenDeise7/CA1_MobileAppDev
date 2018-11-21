@@ -3,9 +3,12 @@ package Menus;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -17,7 +20,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import CRUD.MainFavouriteActivity;
+import Exercises.Arms;
+import wit.ie.fitnessapp.MainActivity;
+import wit.ie.fitnessapp.MapsActivity;
 import wit.ie.fitnessapp.R;
+import wit.ie.fitnessapp.SettingsActivity;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -105,6 +113,69 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 alertDialog.show();
             }
         });
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId())
+                {
+                    case R.id.nav_home:
+                        Intent intent0 = new Intent (ProfileActivity.this, MainActivity.class);
+                        startActivity(intent0);
+                        break;
+                    case R.id.nav_favorites:
+                        Intent intent1 = new Intent (ProfileActivity.this, MainFavouriteActivity.class);
+                        startActivity(intent1);
+                        break;
+                    case R.id.nav_search:
+                        Intent intent2 = new Intent (ProfileActivity.this, MapsActivity.class);
+                        startActivity(intent2);
+                        break;
+
+
+                }
+                return true;
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch(item.getItemId())
+        {
+            case R.id.Home: startActivity(new Intent(this, MainActivity.class));
+                break;
+
+            case R.id.settings: startActivity(new Intent(this, SettingsActivity.class));
+                break;
+
+            case R.id.menuProfile: startActivity(new Intent(this, ProfileActivity.class));
+                break;
+            case R.id.menuLogout:
+                firebaseAuth.signOut();
+                finish();
+                startActivity(new Intent(this, HomeMenu.class));
+                break;
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
